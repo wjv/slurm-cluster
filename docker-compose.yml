@@ -1,6 +1,7 @@
 services:
   slurmjupyter:
         image: slurm-jupyter:19.05.5-1
+        build: ./jupyter
         hostname: slurmjupyter
         user: admin
         volumes:
@@ -9,6 +10,7 @@ services:
                 - 8888:8888
   slurmmaster:
         image: slurm-master:19.05.5-1
+        build: ./master
         hostname: slurmmaster
         user: admin
         volumes:
@@ -19,6 +21,7 @@ services:
                 - 6819:6819
   slurmnode1:
         image: slurm-node:19.05.5-1
+        build: ./node
         hostname: slurmnode1
         user: admin
         volumes:
@@ -27,6 +30,7 @@ services:
                 - slurmmaster
   slurmnode2:
         image: slurm-node:19.05.5-1
+        build: ./node
         hostname: slurmnode2
         user: admin
         volumes:
@@ -35,6 +39,7 @@ services:
                 - slurmmaster
   slurmnode3:
         image: slurm-node:19.05.5-1
+        build: ./node
         hostname: slurmnode3
         user: admin
         volumes:
