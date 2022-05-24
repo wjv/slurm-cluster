@@ -1,6 +1,6 @@
 services:
   slurmjupyter:
-    image: slurm-jupyter:19.05.5-1
+    image: slurm-jupyter:2022.05.25.0
     build: ./jupyter
     hostname: slurmjupyter
     user: admin
@@ -8,8 +8,11 @@ services:
       - shared-vol:/home/admin
     ports:
       - 8888:8888
+    deploy:
+      mode: global
+
   slurmmaster:
-    image: slurm-master:19.05.5-1
+    image: slurm-master:2022.05.25.0
     build: ./master
     hostname: slurmmaster
     user: admin
@@ -19,32 +22,20 @@ services:
       - 6817:6817
       - 6818:6818
       - 6819:6819
-  slurmnode1:
-    image: slurm-node:19.05.5-1
+    deploy:
+      mode: global
+
+  slurmnode:
+    image: slurm-node:2022.05.25.0
     build: ./node
-    hostname: slurmnode1
     user: admin
     volumes:
       - shared-vol:/home/admin
     links:
       - slurmmaster
-  slurmnode2:
-    image: slurm-node:19.05.5-1
-    build: ./node
-    hostname: slurmnode2
-    user: admin
-    volumes:
-      - shared-vol:/home/admin
-    links:
-      - slurmmaster
-  slurmnode3:
-    image: slurm-node:19.05.5-1
-    build: ./node
-    hostname: slurmnode3
-    user: admin
-    volumes:
-      - shared-vol:/home/admin
-    links:
-      - slurmmaster
+    deploy:
+      mode: replicated
+      replicas: 3
+
 volumes:
   shared-vol:
