@@ -1,7 +1,9 @@
 services:
   slurmjupyter:
-    image: slurm-jupyter:2022.05.25.0
-    build: ./jupyter
+    image: slurm-jupyter:2022.05.25.1
+    build:
+      context: ./context
+      dockerfile: ../jupyter/Dockerfile
     hostname: slurmjupyter
     user: admin
     volumes:
@@ -12,8 +14,10 @@ services:
       mode: global
 
   slurmmaster:
-    image: slurm-master:2022.05.25.0
-    build: ./master
+    image: slurm-master:2022.05.25.1
+    build:
+      context: ./context
+      dockerfile: ../master/Dockerfile
     hostname: slurmmaster
     user: admin
     volumes:
@@ -26,8 +30,10 @@ services:
       mode: global
 
   slurmnode:
-    image: slurm-node:2022.05.25.0
-    build: ./node
+    image: slurm-node:2022.05.25.1
+    build:
+      context: ./context
+      dockerfile: ../node/Dockerfile
     user: admin
     volumes:
       - shared-vol:/home/admin

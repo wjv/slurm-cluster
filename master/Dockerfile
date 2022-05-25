@@ -10,10 +10,10 @@ RUN apt update -y && apt install libopenmpi-dev -y && pip3 install mpi4py
 
 COPY slurm.conf /etc/slurm-llnl/
 COPY cgroup.conf /etc/slurm-llnl/
-COPY docker-entrypoint.sh /etc/slurm-llnl/
+COPY master-entrypoint.sh /etc/slurm-llnl/entrypoint.sh
 
 EXPOSE 6817 6818 6819 3306 
 
 WORKDIR /home/admin
 
-ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]
+ENTRYPOINT ["/etc/slurm-llnl/entrypoint.sh"]

@@ -12,7 +12,7 @@ RUN apt update -y && apt install nodejs -y && npm install -g configurable-http-p
 
 COPY slurm.conf /etc/slurm-llnl/
 COPY cgroup.conf /etc/slurm-llnl/
-COPY docker-entrypoint.sh /etc/slurm-llnl/
+COPY jupyter-entrypoint.sh /etc/slurm-llnl/entrypoint.sh
 
 WORKDIR /home/admin
 
@@ -23,4 +23,4 @@ ENV SHELL bash
 
 RUN apt install libopenmpi-dev -y && pip3 install mpi4py && pip3 install jupyterlab_slurm
 
-ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]
+ENTRYPOINT ["/etc/slurm-llnl/entrypoint.sh"]

@@ -8,10 +8,10 @@ RUN apt install sudo -y && apt install python3.9 python3-pip -y && useradd -m ad
 
 COPY slurm.conf /etc/slurm-llnl/
 COPY cgroup.conf /etc/slurm-llnl/
-COPY docker-entrypoint.sh /etc/slurm-llnl/
+COPY node-entrypoint.sh /etc/slurm-llnl/entrypoint.sh
 
 EXPOSE 6817 6818 6819  
 
 RUN apt update -y && apt install libopenmpi-dev -y && pip3 install mpi4py
 
-ENTRYPOINT ["/etc/slurm-llnl/docker-entrypoint.sh"]
+ENTRYPOINT ["/etc/slurm-llnl/entrypoint.sh"]
