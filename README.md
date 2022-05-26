@@ -1,24 +1,47 @@
 # slurm-cluster
-Docker local slurm cluster
+Docker local SLURM cluster
 
 Created by: Rodrigo Ancavil del Pino
 
 https://medium.com/analytics-vidhya/slurm-cluster-with-docker-9f242deee601
 
-To run slurm cluster environment you must execute:
+To build the required images for the SLUM cluster:
 
-     $ docker-compose -f docker-compose-jupyter.yml up -d
+```shell
+$ docker compose build
+```
 
-To stop it, you must:
+To run the SLURM cluster environment:
 
-     $ docker-compose -f docker-compose-jupyter.yml stop
+```shell
+ $ docker compose up -d
+```
+
+To stop it:
+
+```shell
+$ dockøer compose stop
+```
+
+To restart it:
+
+```shell
+$ docker compose start
+```
 
 To check logs:
 
-     $ docker-compose -f docker-compose-jupyter.yml logs -f
-
-     (stop logs with CTRL-c")
+```shell
+$ docker compose logs -f
+```
 
 To check running containers:
 
-     $ docker-compose -f docker-compose-jupyter.yml ps
+```shell
+$ docker compose ps
+```
+
+To destroy the SLURM culster completely:
+```shell
+$ docker compsoe down -v
+```
