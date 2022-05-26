@@ -1,27 +1,31 @@
 services:
   slurmjupyter:
-    image: slurm-jupyter:2022.05.25.1
+    image: slurm-jupyter:2022.05.26.3
     build:
       context: ./context
-      dockerfile: ../jupyter/Dockerfile
+      target: jupyter
+    depends_on:
+      - slurmmaster
     hostname: slurmjupyter
     user: admin
     volumes:
       - shared-vol:/home/admin
+      - munge-key:/etc/munge:ro
     ports:
       - 8888:8888
     deploy:
       mode: global
 
   slurmmaster:
-    image: slurm-master:2022.05.25.1
+    image: slurm-master:2022.05.26.3
     build:
       context: ./context
-      dockerfile: ../master/Dockerfile
+      target: master
     hostname: slurmmaster
     user: admin
     volumes:
       - shared-vol:/home/admin
+      - munge-key:/etc/munge
     ports:
       - 6817:6817
       - 6818:6818
@@ -30,13 +34,16 @@ services:
       mode: global
 
   slurmnode:
-    image: slurm-node:2022.05.25.1
+    image: slurm-node:2022.05.26.3
     build:
       context: ./context
-      dockerfile: ../node/Dockerfile
+      target: node
+    depends_on:
+      - slurmmaster
     user: admin
     volumes:
       - shared-vol:/home/admin
+      - munge-key:/etc/munge:ro
     links:
       - slurmmaster
     deploy:
@@ -45,3 +52,4 @@ services:
 
 volumes:
   shared-vol:
+  munge-key:
